@@ -102,9 +102,9 @@ public class Main {
                 JOptionPane.showMessageDialog(janela, "Informe o nome do aluno.");
                 return;
             }
+            historico.append("Registrando ausencia: " + aluno + ".\n");
             registro.registrar(aluno);
-            historico.append("Ausencia registrada: " + aluno
-                    + " | Total em memoria: " + registro.totalAusencias() + ".\n");
+            historico.append("Total de ausencias em memoria: " + registro.totalAusencias() + ".\n");
             historico.append("---\n");
             campoAluno.setText("");
             campoAluno.requestFocusInWindow();
