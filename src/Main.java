@@ -12,6 +12,11 @@ public class Main {
 
     static class RegistroAusencia {
         private final List<Observador> observadores = new ArrayList<>();
+        private final List<String> ausencias = new ArrayList<>();
+
+        int totalAusencias() {
+            return ausencias.size();
+        }
 
         void inscrever(Observador observador) {
             if (!observadores.contains(observador)) observadores.add(observador);
@@ -22,6 +27,7 @@ public class Main {
         }
 
         void registrar(String aluno) {
+            ausencias.add(aluno); // Mudanca de estado antes das notificacoes
             for (Observador observador : List.copyOf(observadores)) {
                 observador.atualizar(aluno);
             }
@@ -96,8 +102,9 @@ public class Main {
                 JOptionPane.showMessageDialog(janela, "Informe o nome do aluno.");
                 return;
             }
-            historico.append("Ausencia registrada: " + aluno + ".\n");
             registro.registrar(aluno);
+            historico.append("Ausencia registrada: " + aluno
+                    + " | Total em memoria: " + registro.totalAusencias() + ".\n");
             historico.append("---\n");
             campoAluno.setText("");
             campoAluno.requestFocusInWindow();
