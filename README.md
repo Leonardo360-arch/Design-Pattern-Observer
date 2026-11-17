@@ -6,6 +6,15 @@ Quando uma ausência é registrada, o objeto observado (`RegistroAusencia`) avis
 
 **Limitações:** não envia e-mails reais, não utiliza banco de dados, não possui login e não persiste histórico. Os nomes digitados são apenas dados de demonstração; prefira nomes fictícios.
 
+## Arquivos para a apresentação
+
+- [src/SemObserver.java](src/SemObserver.java) — exemplo inicial com chamadas diretas e alto acoplamento.
+- [src/Main.java](src/Main.java) — solução Observer com interface Swing, estado em memória e inscrição dinâmica.
+- [src/ObserverSmokeTest.java](src/ObserverSmokeTest.java) — testes automáticos da lógica, sem dependências externas.
+- [docs/ROTEIRO_APRESENTACAO.md](docs/ROTEIRO_APRESENTACAO.md) — roteiro de 15 minutos, análise e referências.
+
+**Ordem recomendada:** explique e execute `SemObserver.main()`, depois abra `Main.main()`, compare as responsabilidades e demonstre os checkboxes.
+
 ## Requisitos
 
 - IntelliJ IDEA Community ou Ultimate.
@@ -34,6 +43,26 @@ Na raiz do repositório, com JDK 17+:
 javac -encoding UTF-8 -d out src/Main.java
 java -cp out Main
 ```
+
+## Executar todos os exemplos e testes no terminal (opcional)
+
+```bash
+javac -encoding UTF-8 -d out src/*.java
+java -cp out SemObserver
+java -cp out ObserverSmokeTest
+java -cp out Main
+```
+
+O teste imprime `PASS` quando inscrição, cancelamento, ausência de observadores, reinscrição e estado em memória estão corretos. No IntelliJ, você pode executar separadamente `SemObserver.main()`, `ObserverSmokeTest.main()` e `Main.main()` pelos ícones verdes.
+
+## Relação com SOLID e justificativa
+
+- **SRP:** o registro de ausências não implementa o envio de e-mails ou avisos; os observadores assumem essas reações.
+- **OCP:** é possível adicionar novos tipos de observadores sem alterar o laço que notifica os inscritos.
+- **DIP (parcial):** `RegistroAusencia` depende da abstração `Observador`, não das implementações concretas.
+- **Quando usar:** múltiplos componentes precisam reagir a mudanças; **quando evitar:** um único fluxo simples e estável pode dispensar o padrão.
+
+Para demonstração, as notificações são síncronas e simuladas. O estado é a lista de ausências mantida em memória e se perde ao fechar a aplicação.
 
 ## Classes e papéis
 
